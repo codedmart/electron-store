@@ -1,13 +1,26 @@
 'use strict';
-const path = require('path');
-const electron = require('electron');
-const Conf = require('conf');
 
-class ElectronStore extends Conf {
-	constructor(opts) {
-		const defaultCwd = (electron.app || electron.remote.app).getPath('userData');
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-		opts = Object.assign({name: 'config'}, opts);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var path = require('path');
+var electron = require('electron');
+var Conf = require('conf');
+
+var ElectronStore = function (_Conf) {
+	_inherits(ElectronStore, _Conf);
+
+	function ElectronStore(opts) {
+		_classCallCheck(this, ElectronStore);
+
+		var defaultCwd = (electron.app || electron.remote.app).getPath('userData');
+
+		opts = Object.assign({ name: 'config' }, opts);
 
 		if (opts.cwd) {
 			opts.cwd = path.isAbsolute(opts.cwd) ? opts.cwd : path.join(defaultCwd, opts.cwd);
@@ -17,12 +30,18 @@ class ElectronStore extends Conf {
 
 		opts.configName = opts.name;
 		delete opts.name;
-		super(opts);
+		return _possibleConstructorReturn(this, (ElectronStore.__proto__ || Object.getPrototypeOf(ElectronStore)).call(this, opts));
 	}
 
-	openInEditor() {
-		electron.shell.openItem(this.path);
-	}
-}
+	_createClass(ElectronStore, [{
+		key: 'openInEditor',
+		value: function openInEditor() {
+			electron.shell.openItem(this.path);
+		}
+	}]);
+
+	return ElectronStore;
+}(Conf);
 
 module.exports = ElectronStore;
+
